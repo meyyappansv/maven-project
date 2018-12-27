@@ -3,7 +3,7 @@ pipeline {
     agent any
     stages {
 
-        stage('Buiuld'){
+        stage('Build'){
 
             steps{
                 sh 'mvn clean package'
@@ -13,6 +13,12 @@ pipeline {
                     echo 'Archiving...'
                     archiveArtifacts artifacts: '**/target/*.war'
                 }
+            }
+        }
+        stage('Deploy to Staging'){
+            steps{
+                build job: 'deploy-to-staging'
+
             }
         }
     }
